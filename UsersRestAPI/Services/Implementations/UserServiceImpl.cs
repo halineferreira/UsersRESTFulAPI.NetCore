@@ -14,7 +14,6 @@ namespace UsersRestAPI.Services.Implementations
         {
             _context = context;
         }
-        private volatile int count;
 
         public UserServiceImpl()
         {
