@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Threading;
 using UsersRestAPI.Model;
 using UsersRestAPI.Repository;
+using UsersRestAPI.Repository.Generic;
 
 namespace UsersRestAPI.Business.Implementations
 {
     public class PermissionBusinessImpl : IPermissionBusiness
     {
-        private IPermissionRepository _repository;
+        private IRepository<Permission> _repository;
 
-        public PermissionBusinessImpl(IPermissionRepository repository)
+        public PermissionBusinessImpl(IRepository<Permission> repository)
         {
             _repository = repository;
         }

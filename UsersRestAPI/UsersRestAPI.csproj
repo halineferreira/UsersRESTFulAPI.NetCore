@@ -13,6 +13,8 @@
     <Folder Include="Model\Context\" />
     <Folder Include="Scripts\" />
     <Folder Include="Repository\" />
+    <Folder Include="Model\Base\" />
+    <Folder Include="Repository\Generic\" />
   </ItemGroup>
 
   <ItemGroup>

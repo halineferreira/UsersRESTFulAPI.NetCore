@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using UsersRestAPI.Model.Base;
 
 namespace UsersRestAPI.Model
 {
-    public class Permission
+    public class Permission : BaseEntity
     {
         public long Id { get; set; }
         public string Name { get; set; }

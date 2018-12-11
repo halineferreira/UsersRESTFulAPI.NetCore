@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UsersRestAPI.Model;
-using UsersRestAPI.Model.Context;
-using UsersRestAPI.Repository;
+using UsersRestAPI.Repository.Generic;
 
 namespace UsersRestAPI.Business.Implementations
 {
     public class UserBusinessImpl : IUserBusiness
     {
-        private IUserRepository _repository;
+        private IRepository<User> _repository;
 
-        public UserBusinessImpl(IUserRepository repository)
+        public UserBusinessImpl(IRepository<User> repository)
         {
             _repository = repository;
         }

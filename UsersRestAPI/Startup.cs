@@ -9,6 +9,7 @@ using UsersRestAPI.Business.Implementations;
 using UsersRestAPI.Repository;
 using UsersRestAPI.Repository.Implementations;
 using Microsoft.Extensions.Logging;
+using UsersRestAPI.Repository.Generic;
 
 namespace UsersRestAPI
 {
@@ -40,6 +41,8 @@ namespace UsersRestAPI
             services.AddScoped<IPermissionRepository, PermissionRepositoryImpl>();
             services.AddScoped<IUserBusiness, UserBusinessImpl>();
             services.AddScoped<IUserRepository, UserRepositoryImpl>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

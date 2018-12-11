@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UsersRestAPI.Model.Base;
 
 namespace UsersRestAPI.Model
 {
     [Table("roles_permissos")]
-    public class PermissionRole
+    public class PermissionRole : BaseEntity
     {
         [Key]
         [Column("id_permiso")]

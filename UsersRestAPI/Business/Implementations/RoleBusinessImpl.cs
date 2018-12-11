@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Threading;
 using UsersRestAPI.Model;
 using UsersRestAPI.Repository;
+using UsersRestAPI.Repository.Generic;
 
 namespace UsersRestAPI.Business.Implementations
 {
     public class RoleBusinessImpl : IRoleBusiness
     {
-        private IRoleRepository _repository;
+        private IRepository<Role> _repository;
 
-        public RoleBusinessImpl(IRoleRepository repository)
+        public RoleBusinessImpl(IRepository<Role> repository)
         {
             _repository = repository;
         }

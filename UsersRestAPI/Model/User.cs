@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UsersRestAPI.Model.Base;
 
 namespace UsersRestAPI.Model
 {
     [Table("usuarios")]
-    public class User
+    public class User : BaseEntity
     {
         [Key]
         [Column("id_usuario")]
