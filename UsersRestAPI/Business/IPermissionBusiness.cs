@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UsersRestAPI.Model;
 
-namespace UsersRestAPI.Services.Implementations
+namespace UsersRestAPI.Business
 {
-    public interface IPermissionService
+    public interface IPermissionBusiness
     {
         Permission Create(Permission permission);
         Permission Update(Permission permission);

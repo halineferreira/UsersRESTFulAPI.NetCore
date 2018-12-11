@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using UsersRestAPI.Model;
-using UsersRestAPI.Services.Implementations;
+using UsersRestAPI.Business;
 
 namespace UsersRestAPI.Controllers
 {
@@ -12,25 +8,25 @@ namespace UsersRestAPI.Controllers
     [ApiController]
     public class RolesController : ControllerBase
     {
-        private IRoleService _roleService;
+        private IRoleBusiness _roleBusiness;
 
-        public RolesController(IRoleService roleService)
+        public RolesController(IRoleBusiness roleBusiness)
         {
-            _roleService = roleService;
+            _roleBusiness = roleBusiness;
         }
 
         // GET api/roles
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_roleService.GetAll());
+            return Ok(_roleBusiness.GetAll());
         }
 
         // GET api/roles/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var role = _roleService.GetById(id);
+            var role = _roleBusiness.GetById(id);
             if (role == null) return NotFound();
             return Ok(role);
 
@@ -41,7 +37,7 @@ namespace UsersRestAPI.Controllers
         public IActionResult Post([FromBody] Role role)
         {
             if (role == null) return BadRequest();
-            return new ObjectResult(_roleService.Create(role));
+            return new ObjectResult(_roleBusiness.Create(role));
         }
 
         // PUT api/roles/5
@@ -49,14 +45,14 @@ namespace UsersRestAPI.Controllers
         public IActionResult Put([FromBody] Role role)
         {
             if (role == null) return BadRequest();
-            return new ObjectResult(_roleService.Update(role));
+            return new ObjectResult(_roleBusiness.Update(role));
         }
 
         // DELETE api/roles/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _roleService.Delete(id);
+            _roleBusiness.Delete(id);
             return NoContent();
         }
     }

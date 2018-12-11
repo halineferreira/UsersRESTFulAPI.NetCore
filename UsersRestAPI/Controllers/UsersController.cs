@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UsersRestAPI.Model;
-using UsersRestAPI.Services.Implementations;
+using UsersRestAPI.Business;
 
 namespace UsersRestAPI.Controllers
 {
@@ -12,25 +9,25 @@ namespace UsersRestAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
+        private IUserBusiness _userBusiness;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserBusiness userBusiness)
         {
-            _userService = userService;
+            _userBusiness = userBusiness;
         }
 
         // GET api/users
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_userService.GetAll());
+            return Ok(_userBusiness.GetAll());
         }
 
         // GET api/users/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var user = _userService.GetById(id);
+            var user = _userBusiness.GetById(id);
             if (user == null) return NotFound();
             return Ok(user);
 
@@ -41,7 +38,7 @@ namespace UsersRestAPI.Controllers
         public IActionResult Post([FromBody] User user)
         {
             if (user == null) return BadRequest();
-            return new ObjectResult(_userService.Create(user));
+            return new ObjectResult(_userBusiness.Create(user));
         }
 
         // PUT api/users/5
@@ -49,14 +46,14 @@ namespace UsersRestAPI.Controllers
         public IActionResult Put([FromBody] User user)
         {
             if (user == null) return BadRequest();
-            return new ObjectResult(_userService.Update(user));
+            return new ObjectResult(_userBusiness.Update(user));
         }
 
         // DELETE api/users/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _userService.Delete(id);
+            _userBusiness.Delete(id);
             return NoContent();
         }
     }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UsersRestAPI.Model;
 
-namespace UsersRestAPI.Services.Implementations
+namespace UsersRestAPI.Business
 {
-    public interface IUserService
+    public interface IUserBusiness
     {
         User Create(User user);
         User Update(User user);

@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using UsersRestAPI.Model;
 using UsersRestAPI.Model.Context;
 
-namespace UsersRestAPI.Services.Implementations
+namespace UsersRestAPI.Repository.Implementations
 {
-    public class UserServiceImpl : IUserService
+    public class UserRepositoryImpl : IUserRepository
     {
         private MySQLContext _context;
-        public UserServiceImpl(MySQLContext context)
+        public UserRepositoryImpl(MySQLContext context)
         {
             _context = context;
         }
 
-        public UserServiceImpl()
+        public UserRepositoryImpl()
         {
         }
 
@@ -80,7 +79,7 @@ namespace UsersRestAPI.Services.Implementations
 
         }
 
-        private bool Exist(long? id)
+        public bool Exist(long? id)
         {
             return _context.Users.Any(u => u.Id.Equals(id));
         }

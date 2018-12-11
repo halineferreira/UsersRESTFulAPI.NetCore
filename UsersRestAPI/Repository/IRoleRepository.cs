@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UsersRestAPI.Model;
 
-namespace UsersRestAPI.Services.Implementations
+namespace UsersRestAPI.Repository
 {
-    public interface IRoleService
+    public interface IRoleRepository
     {
         Role Create(Role role);
         Role Update(Role role);

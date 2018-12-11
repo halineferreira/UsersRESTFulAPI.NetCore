@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using UsersRestAPI.Model;
 
-namespace UsersRestAPI.Services.Implementations
+namespace UsersRestAPI.Repository.Implementations
 {
-    public class RoleServiceImpl : IRoleService
+    public class RoleRepositoryImpl : IRoleRepository
     {
         private volatile int count;
 
-        public RoleServiceImpl()
+        public RoleRepositoryImpl()
         {
         }
 

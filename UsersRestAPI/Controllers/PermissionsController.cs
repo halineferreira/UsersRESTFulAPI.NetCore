@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using UsersRestAPI.Model;
-using UsersRestAPI.Services.Implementations;
+using UsersRestAPI.Business;
 
 namespace UsersRestAPI.Controllers
 {
@@ -12,25 +8,25 @@ namespace UsersRestAPI.Controllers
     [ApiController]
     public class PermissionsController : ControllerBase
     {
-        private IPermissionService _permissionService;
+        private IPermissionBusiness _permissionBusiness;
 
-        public PermissionsController(IPermissionService permissionService)
+        public PermissionsController(IPermissionBusiness permissionBusiness)
         {
-            _permissionService = permissionService;
+            _permissionBusiness = permissionBusiness;
         }
 
         // GET api/permissions
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_permissionService.GetAll());
+            return Ok(_permissionBusiness.GetAll());
         }
 
         // GET api/permissions/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var permission = _permissionService.GetById(id);
+            var permission = _permissionBusiness.GetById(id);
             if (permission == null) return NotFound();
             return Ok(permission);
 
@@ -41,7 +37,7 @@ namespace UsersRestAPI.Controllers
         public IActionResult Post([FromBody] Permission permission)
         {
             if (permission == null) return BadRequest();
-            return new ObjectResult(_permissionService.Create(permission));
+            return new ObjectResult(_permissionBusiness.Create(permission));
         }
 
         // PUT api/permissions/5
@@ -49,14 +45,14 @@ namespace UsersRestAPI.Controllers
         public IActionResult Put([FromBody] Permission permission)
         {
             if (permission == null) return BadRequest();
-            return new ObjectResult(_permissionService.Update(permission));
+            return new ObjectResult(_permissionBusiness.Update(permission));
         }
 
         // DELETE api/permissions/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _permissionService.Delete(id);
+            _permissionBusiness.Delete(id);
             return NoContent();
         }
     }
