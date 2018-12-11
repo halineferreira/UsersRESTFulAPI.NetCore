@@ -11,8 +11,8 @@ namespace UsersRestAPI.Model
         [Column("id_usuario")]
         public long? Id { get; set; }
 
-        [Column("id_rol")]
-        public long RoleId { get; set; }
+        [ForeignKey("id_rol")]
+        public Role Role { get; set; }
 
         [Column("nombre")]
         public string FirstName { get; set; }
