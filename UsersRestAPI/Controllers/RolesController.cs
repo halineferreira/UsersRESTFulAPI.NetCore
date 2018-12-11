@@ -45,6 +45,8 @@ namespace UsersRestAPI.Controllers
         public IActionResult Put([FromBody] Role role)
         {
             if (role == null) return BadRequest();
+            var updatedRole = _roleBusiness.Update(role);
+            if (updatedRole == null) return BadRequest();
             return new ObjectResult(_roleBusiness.Update(role));
         }
 

@@ -45,6 +45,8 @@ namespace UsersRestAPI.Controllers
         public IActionResult Put([FromBody] Permission permission)
         {
             if (permission == null) return BadRequest();
+            var updatedPermission = _permissionBusiness.Update(permission);
+            if (updatedPermission == null) return BadRequest();
             return new ObjectResult(_permissionBusiness.Update(permission));
         }
 

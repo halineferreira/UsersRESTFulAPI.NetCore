@@ -8,23 +8,29 @@ using UsersRestAPI.Business ;
 using UsersRestAPI.Business.Implementations;
 using UsersRestAPI.Repository;
 using UsersRestAPI.Repository.Implementations;
+using Microsoft.Extensions.Logging;
 
 namespace UsersRestAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly Microsoft.Extensions.Logging.ILogger _logger;
+        public IConfiguration _configuration { get; }
+        public IHostingEnvironment _environment { get; }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            _environment = environment;
+            _logger = logger;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration["MySqlConnection:MySqlConnectioString"];
-            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
+            var connectionString = _configuration["MySqlConnection:MySqlConnectioString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connectionString));
 
             services.AddMvc();
 
@@ -36,7 +42,7 @@ namespace UsersRestAPI
             services.AddScoped<IUserRepository, UserRepositoryImpl>();
         }
 
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

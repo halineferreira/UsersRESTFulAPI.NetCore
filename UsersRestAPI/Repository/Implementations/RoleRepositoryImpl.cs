@@ -1,12 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UsersRestAPI.Model;
+using UsersRestAPI.Model.Context;
 
 namespace UsersRestAPI.Repository.Implementations
 {
     public class RoleRepositoryImpl : IRoleRepository
     {
-        private volatile int count;
+        private MySQLContext _context;
+        public RoleRepositoryImpl(MySQLContext context)
+        {
+            _context = context;
+        }
 
         public RoleRepositoryImpl()
         {
@@ -14,53 +20,68 @@ namespace UsersRestAPI.Repository.Implementations
 
         public Role Create(Role role)
         {
+            try
+            {
+                _context.Add(role);
+                _context.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return role;
         }
 
         public void Delete(long id)
         {
+            var result = _context.Roles.SingleOrDefault(u => u.Id.Equals(id));
 
+            try
+            {
+                if (result != null) _context.Roles.Remove(result);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public List<Role> GetAll()
         {
-            List<Role> roles = new List<Role>();
-            for (int i = 0; i<=10; i++)
-            {
-                Role role = MockRole(i);
-                roles.Add(role);
-            }
-            return roles;
+            return _context.Roles.ToList();
         }
 
-        private Role MockRole(int i)
-        {
-            return new Role
-            {
-                Id = IncrementAndGet() + i,
-                Name = "Name",
-                Description = "Description"
-            };
-        }
-
-        private long IncrementAndGet()
-        {
-            return Interlocked.Increment(ref count);
-        }
 
         public Role GetById(long id)
         {
-            return new Role
-            {
-                Id = IncrementAndGet(),
-                Name = "Name",
-                Description = "Description",
-            };
+            return _context.Roles.SingleOrDefault(p => p.Id.Equals(id));
         }
 
         public Role Update(Role role)
         {
+            if (!Exist(role.Id)) return null;
+            var result = _context.Roles.SingleOrDefault(u => u.Id.Equals(role.Id));
+            try
+            {
+                _context.Entry(result).CurrentValues.SetValues(role);
+                _context.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return role;
+
+        }
+
+        public bool Exist(long? id)
+        {
+            return _context.Roles.Any(u => u.Id.Equals(id));
         }
     }
 }

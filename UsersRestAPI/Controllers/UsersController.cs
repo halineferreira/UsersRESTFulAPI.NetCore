@@ -46,6 +46,8 @@ namespace UsersRestAPI.Controllers
         public IActionResult Put([FromBody] User user)
         {
             if (user == null) return BadRequest();
+            var updatedUser = _userBusiness.Update(user);
+            if (updatedUser == null) return BadRequest();
             return new ObjectResult(_userBusiness.Update(user));
         }
 

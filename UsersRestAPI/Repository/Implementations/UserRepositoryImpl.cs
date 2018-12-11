@@ -62,7 +62,7 @@ namespace UsersRestAPI.Repository.Implementations
 
         public User Update(User user)
         {
-            if (!Exist(user.Id)) return new User();
+            if (!Exist(user.Id)) return null;
             var result = _context.Users.SingleOrDefault(u => u.Id.Equals(user.Id));
             try
             {
