@@ -1,0 +1,54 @@
+<div>
+  <br/>
+  <h1>Usuarios</h1>
+  <br/>
+  <div id="list" class="row">
+    <div class="table-responsive col-md-12">
+      <table class="table table-striped table-condensed" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Telefono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index;">
+            <td><img src="{{user.photo}}"></td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.phone}}</td>
+            <td class="actions">
+              <button type="button" class="btn btn-warning btn-xs" (click)="editItem(i); staticModal.show();">Editar</button>
+              <button type="button" class="btn btn-danger btn-xs" (click)="removeItem(i)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Editar contato</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
+        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default mr-3" (click)="staticModal.hide()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="saveChanges(); staticModal.hide()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
